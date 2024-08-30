@@ -1,4 +1,4 @@
-require("src.Player")
+import "src.Player"
 
 {
     graphics: lg,
@@ -12,7 +12,7 @@ export class Game
     new: () =>
         -- Instantiate a new game. For now, we just have a player
         -- and that's it!
-        @player = Player!
+        @player = Player.Player!
 
     keypressed: (key, scancode, isrepeat) ->
         -- Called when a key is pressed. We will check for keypresses in

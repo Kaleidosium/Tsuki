@@ -1,4 +1,4 @@
-require("src.util.Vector2")
+import "src.util.Vector2"
 
 {
     graphics: lg,
@@ -10,7 +10,7 @@ export class Player
         -- Instantiate a new player with default location
         -- Returns a new player instance
 
-        @position = Vector2(lg.getWidth! / 2, lg.getHeight! / 2)
+        @position = Vector2.Vector2(lg.getWidth! / 2, lg.getHeight! / 2)
         -- The player's movement speed in each direction
         @speed = 500
         -- The player's sprite (moon!)
@@ -23,19 +23,19 @@ export class Player
         -- Called every tick, where the time between ticks is variable
         -- @param dt The time delta since the last tick
 
-        dir = Zero()
+        dir = Vector2.Zero()
 
         -- These are opposite because the screen starts at the top left! You can
         -- change this by changing the Vector defaults or by changing your math,
         -- either one works.
         if lk.isDown("up")
-            dir += Down()
+            dir += Vector2.Down()
         if lk.isDown("down")
-            dir += Up()
+            dir += Vector2.Up()
         if lk.isDown("left")
-            dir += Left()
+            dir += Vector2.Left()
         if lk.isDown("right")
-            dir += Right()
+            dir += Vector2.Right()
 
         @\move(dir * dt)
 

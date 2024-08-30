@@ -1,4 +1,4 @@
-require("src.util.Math")
+import "src.util.Math"
 require("busted.runner")()
 
 describe("Math", () ->

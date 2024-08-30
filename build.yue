@@ -1,17 +1,16 @@
--- Selene Build Script
-require("lfs")
+-- Tsuki Build Script
+import "lfs"
 
 ERR = 1
 OK = 0
 
 BLOCKLIST_LINES =
     ["conf.lua"]: {
-        "%s*require%(\"lib.moonscript\"%)[^\n]*",
-        "package%.path = package%.path %.%. \";%./lib/moonscript/%?%.lua\"[^\n]*\n",
+        "%s*require%(\"yue\"%)[^\n]*",
         "package%.path = package%.path %.%. \";%./lib/lulpeg/%?%.lua\"[^\n]*\n",
     }
 
-export traverse = (func, path, dirs) ->
+traverse = (func, path, dirs) ->
     -- Traverse a directory recursively and apply a function to files found
     -- Returns OK on success, ERR on failure from the func result
     -- @param func The function to apply to files
@@ -50,7 +49,7 @@ export traverse = (func, path, dirs) ->
 
     return rv
 
-class SeleneBuild
+class TsukiBuild
     new: (src) =>
         -- Instantiate a new build of the directory
         -- given in src
@@ -60,11 +59,11 @@ class SeleneBuild
 
 
     build_file: (path) =>
-        -- Build a .moon file. Called as a callback by the
+        -- Build a .yue file. Called as a callback by the
         -- directory traversal. Returns OK on success, ERR on failure
         rv = OK
-        if path\match("^.+%.moon$")
-            fd = io.popen("moonc #{path}")
+        if path\match("^.+%.yue$")
+            fd = io.popen("yue #{path}")
             output = fd\read("*a")
 
             status = fd\close()
@@ -84,10 +83,10 @@ class SeleneBuild
         return OK
 
     dist_file: (path) =>
-        -- Clean a .moon file. Called as a callback by the
+        -- Clean a .yue file. Called as a callback by the
         -- directory traversal. Returns OK on success, and cannot fail
 
-        if path\match("^.+%.moon$")
+        if path\match("^.+%.yue$")
             os.remove(path)
             print "Removed #{path}"
 
@@ -120,7 +119,7 @@ class SeleneBuild
         return traverse(@\clean_file, @src, false)
 
     dist: (yes) =>
-        -- Build for distribution by building lua files and removing moonscript files.
+        -- Build for distribution by building lua files and removing Yuescript files.
 
         rv = OK
 
@@ -129,7 +128,7 @@ class SeleneBuild
         git_status = io.popen("git status -s")
         if git_status\read("*a") != "" and not yes
             print "Git tree is dirty. Commit changes and commit/remove untracked files or use the --yes flag"
-            print "Maybe you forgot to run 'build.moon -c'"
+            print "Maybe you forgot to run 'build.yue -c'"
             rv = ERR
             return rv
         git_status\close()
@@ -145,7 +144,7 @@ class SeleneBuild
         if yes
             answer = "y"
         else
-            io.write "Building distribution. Are you want to remove all moonscript files? (y/n) "
+            io.write "Building distribution. Are you want to remove all Yuescript files? (y/n) "
             answer = io.read()
 
         if answer == "y" or yes
@@ -170,9 +169,6 @@ class SeleneBuild
             traverse(@\delete_all, "lib/lulpeg", true)
             traverse(@\delete_all, "lib/lulpeg", true)
             lfs.rmdir("lib/lulpeg")
-            traverse(@\delete_all, "lib/moonscript", true)
-            traverse(@\delete_all, "lib/moonscript", true)
-            lfs.rmdir("lib/moonscript")
             
         else
             print "Aborting: '#{answer}' is not y"
@@ -202,22 +198,22 @@ class SeleneBuild
 main = (arg) ->
     -- Create and run the build
     argparse = require("argparse")
-    parser = argparse("build", "Build a Selene project")
+    parser = argparse("build", "Build a Tsuki project")
     parser\argument("src", "Source directory")
     parser\flag("-c --clean", "Clean the build directory (remove lua build files)")\args("?")
-    parser\flag("-d --dist", "Build a distribution and remove all moonscript files after building")\args("?")
+    parser\flag("-d --dist", "Build a distribution and remove all Yuescript files after building")\args("?")
     parser\flag("-y --yes", "Answer yes to all prompts. THIS MAY BE DANGEROUS!")\args("?")
     parser\flag("-t --test", "Run tests")\args("?")
-    parser\option("-p --pattern", "Pattern(s) to use to search for test files")\args("+")\default("Test.+%.moon")\defmode("u")
+    parser\option("-p --pattern", "Pattern(s) to use to search for test files")\args("+")\default("Test.+%.yue")\defmode("u")
     args = parser\parse(arg)
 
     if #arg < 1
-        print "Usage: selene <srcdir>"
+        print "Usage: tsuki <srcdir>"
         return
 
-    build = SeleneBuild(args["src"])
+    build = TsukiBuild(args["src"])
 
-    rv = OK
+    rv = OK        
 
     if args["test"]
         rv = build\test(args["pattern"])

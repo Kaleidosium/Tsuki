@@ -34,9 +34,9 @@ jobs:
       run: |
         luarocks make --dev
     - name: Test Project
-      run: moon build.moon src -t
+      run: yue -e build.yue src -t
     - name: Compile Project
-      run: moon build.moon src -d -y
+      run: yue -e build.yue src -d -y
     # Build the applications
     - uses: nhartland/love-build@master
       with:

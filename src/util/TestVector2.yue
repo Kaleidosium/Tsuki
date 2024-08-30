@@ -1,4 +1,4 @@
-require("src.util.Vector2")
+import "src.util.Vector2"
 require("busted.runner")()
 
 describe("Vector2", () ->

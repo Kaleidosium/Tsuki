@@ -1,3 +1,5 @@
+import "src.Game"
+
 {
     graphics: lg,
     keyboard: lk,
@@ -7,12 +9,9 @@
     window: lw
 } = love
 
-game = nil
-
 love.load = () ->
     -- Called when the game is loaded
-    require("src.Game")
-    game = Game!
+    global game = Game.Game!
 
 love.keypressed = (key, scancode, isrepeat) ->
     -- Called when a key is pressed

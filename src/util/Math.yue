@@ -1,6 +1,4 @@
-export clamp
-
-clamp = (value, min, max) ->
+export clamp = (value, min, max) ->
     -- clamp a value between min and max
     -- @param value: the value to clamp
     -- @param min: the minimum value

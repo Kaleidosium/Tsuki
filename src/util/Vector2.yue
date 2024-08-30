@@ -1,8 +1,6 @@
-require("src.util.Math")
+import "src.util.Math"
 
-export ^
-
-class Vector2
+export class Vector2
     new: (x, y) =>
         -- constructor
         -- Returns a new vector2 with the given x and y values
@@ -70,19 +68,19 @@ class Vector2
         -- @param: miny The minimum y value
         -- @param: maxx The maximum x value
         -- @param: maxy The maximum y value
-        @x = clamp(@x, minx, maxx)
-        @y = clamp(@y, miny, maxy)
+        @x = Math.clamp(@x, minx, maxx)
+        @y = Math.clamp(@y, miny, maxy)
 
     
-Up = () ->
+export Up = () ->
     Vector2(0, 1)
-Left = () ->
+export Left = () ->
     Vector2(-1, 0)
-Unit = () ->
+export Unit = () ->
     Vector2(1, 1)
-Right = () ->
+export Right = () ->
     Vector2(1, 0)
-Down = () ->
+export Down = () ->
     Vector2(0, -1)
-Zero = () ->
+export Zero = () ->
     Vector2(0, 0)

@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
@@ -14,36 +13,52 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: recursive
-    # For some reason github.
+
     - name: Output Project Name
       id: project_name
       run: |
         export NAME="${GITHUB_REPOSITORY#*/}"
         echo "name=${NAME}" >> $GITHUB_OUTPUT
+
     - name: Display Project Name
       run: |
         echo "Building Project '${{ steps.project_name.outputs.name }}'"
-    - uses: leafo/gh-actions-lua@v9
-      with:
-        buildCache: false
-    - uses: leafo/gh-actions-luarocks@v4
+
+    - name: Install Lua and LuaRocks
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y liblua5.1-0-dev lua5.1 luarocks
+
     - name: Install Lua Packages
       run: |
-        luarocks make --dev
+        luarocks install --local yuescript
+        luarocks make --local --dev
+
     - name: Test Project
-      run: yue -e build.yue src -t
+      run: |
+        export PATH="$HOME/.luarocks/bin:$PATH"
+        export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;;"
+        export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;;"
+        yue -e build.yue src -t
+
     - name: Compile Project
-      run: yue -e build.yue src -d -y
-    # Build the applications
-    - uses: nhartland/love-build@master
+      run: |
+        export PATH="$HOME/.luarocks/bin:$PATH"
+        export LUA_PATH="$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;;"
+        export LUA_CPATH="$HOME/.luarocks/lib/lua/5.1/?.so;;"
+        yue -e build.yue src -d -y
+
+    - name: Build LÖVE applications
+      uses: nhartland/love-build@master
       with:
-       app_name: ${{ steps.project_name.outputs.name }}
-       love_version: '11.4'
-    # Upload the built applications
-    - uses: actions/upload-artifact@v3
+        app_name: ${{ steps.project_name.outputs.name }}
+        love_version: '11.4'
+
+    - name: Upload built applications
+      uses: actions/upload-artifact@v3
       with:
         name: built-applications
         path: 'release'

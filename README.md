@@ -72,7 +72,7 @@ the game!
 Now that you have the repository set up, just run `love .` to start your game! There is
 a demo project already configured for you, and you should see something like this:
 
-![A screenshot of the game running, displaying a moon image on the default LOVE2D dark background]()
+![A screenshot of the game running, displaying a moon image on the default LOVE2D dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)
 
 and you should be able to move around with the arrow keys.
 

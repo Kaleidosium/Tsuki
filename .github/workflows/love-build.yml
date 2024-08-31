@@ -58,7 +58,7 @@ jobs:
         love_version: '11.4'
 
     - name: Upload built applications
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: built-applications
-        path: 'release'
+        path: release

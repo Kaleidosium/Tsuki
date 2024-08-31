@@ -122,7 +122,7 @@ It will run `busted` tests on all files matching a pattern, which defaults to
 so:
 
 ```sh
-yue -e build.yue --test --pattern '.+Test%.yue'
+yue -e build.yue src --test --pattern '.+Test%.yue'
 ```
 
 ### Release Builds

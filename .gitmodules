@@ -1,6 +1,6 @@
 [submodule "lulpeg"]
 	path = lulpeg
-	url = https://github.com/novafacing/LuLPeg.git
+	url = https://github.com/pygy/LuLPeg.git
 [submodule "lib/lulpeg"]
 	path = lib/lulpeg
-	url = https://github.com/novafacing/LuLPeg.git
+	url = https://github.com/pygy/LuLPeg.git

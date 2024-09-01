@@ -81,49 +81,12 @@ jobs:
         run: |
           yue -e build.yue src -d -y
 
-      # Prepare LÖVE package
-      - name: Prepare LÖVE package
-        run: |
-          mkdir -p love_package
-          cp -r src/* love_package/
-          if [ -d "love_package/util" ]; then
-            cp -r love_package/util/* love_package/
-            rm -rf love_package/util
-          fi
-          # Copy yue.so and yue.dll into the love_package
-          cp src/yue.so love_package/
-          cp src/yue.dll love_package/
-          cd love_package
-          7z a ../${{ steps.project_name.outputs.name }}.love ./*
-          cd ..
-
-      # Debug steps
-      # - name: Debug - List working directory contents
-      #   run: |
-      #     pwd
-      #     ls -la
-      # - name: Debug - List contents of LÖVE package
-      #   run: |
-      #     7z l ${{ steps.project_name.outputs.name }}.love
-      # - name: Debug - Extract and list LÖVE package contents
-      #   run: |
-      #     mkdir love_contents
-      #     7z x ${{ steps.project_name.outputs.name }}.love -olove_contents
-      #     ls -laR love_contents
-
-      # Extract LÖVE package
-      - name: Extract LÖVE package
-        run: |
-          mkdir love_source
-          7z x ${{ steps.project_name.outputs.name }}.love -olove_source
-
       # Build LÖVE applications
       - name: Build LÖVE applications
         uses: nhartland/love-build@master
         with:
           app_name: ${{ steps.project_name.outputs.name }}
           love_version: "11.5"
-          source_dir: ./love_source
 
       # Copy yue.so and yue.dll to release directory
       - name: Copy yue.so and yue.dll to release directory

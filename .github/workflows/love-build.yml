@@ -66,6 +66,9 @@ jobs:
           unzip -o yue-macos-universal-luajit-so.zip -d src/
           7z x yue-windows-x64-lua51-dll.7z -osrc/
 
+          # Remove unneeded files
+          rm latest.json yue-macos-universal-luajit-so.zip yue-windows-x64-lua51-dll.7z
+
       # Build the applications
       - uses: nhartland/love-build@master
         with:

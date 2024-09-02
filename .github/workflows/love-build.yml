@@ -29,6 +29,7 @@ jobs:
       - uses: leafo/gh-actions-lua@v10
         with:
           buildCache: false
+          luaVersion: "5.1.5"
       - uses: leafo/gh-actions-luarocks@v4
       - name: Install Lua Packages
         run: |

@@ -1,1 +1,2 @@
-require("yue")("src.main")
+require("yuetrace")
+require("yue")("src.Main")

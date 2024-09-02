@@ -5,99 +5,70 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
+
       - name: Output Project Name
         id: project_name
-        shell: bash
         run: |
           export NAME="${GITHUB_REPOSITORY#*/}"
           echo "name=${NAME}" >> $GITHUB_OUTPUT
       - name: Display Project Name
         run: |
           echo "Building Project '${{ steps.project_name.outputs.name }}'"
-
-      # Installing C Compiler
-      - name: Install GCC
-        run: |
-          sudo apt-get install -y gcc
-
-      # Install Lua and LuaRocks
-      - name: Install Lua and LuaRocks
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks
-      # Set up environment for Lua and LuaRocks
-      - name: Set PATH and environment variables for Lua and LuaRocks
-        shell: bash
-        run: |
-          echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
-          echo "LUA_PATH=$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;;" >> $GITHUB_ENV
-          echo "LUA_CPATH=$HOME/.luarocks/lib/lua/5.1/?.so;;" >> $GITHUB_ENV
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          buildCache: false
+      - uses: leafo/gh-actions-luarocks@v4
       - name: Install Lua Packages
         run: |
-          luarocks --local install yuescript
-          luarocks --local make --dev
-
-      # Compile yue.so for Linux
-      - name: Compile yue.so
-        run: |
-          gcc -shared -o src/yue.so -fPIC $(pkg-config --cflags lua5.1) $(pkg-config --libs lua5.1)
-
-      # Cross-compile yue.dll for Windows
-      # Install MinGW for cross-compilation
-      - name: Install MinGW for cross-compilation
-        run: |
-          sudo apt-get install -y mingw-w64
-
-      # Download and set up Lua for Windows
-      - name: Download and set up Lua for Windows
-        run: |
-          wget https://sourceforge.net/projects/luabinaries/files/5.1.5/Windows%20Libraries/Dynamic/lua-5.1.5_Win64_dllw4_lib.zip
-          unzip lua-5.1.5_Win64_dllw4_lib.zip -d lua_win64
-          sudo cp lua_win64/lua5.1.dll /usr/x86_64-w64-mingw32/lib/
-          sudo cp lua_win64/liblua5.1.a /usr/x86_64-w64-mingw32/lib/
-          wget https://www.lua.org/ftp/lua-5.1.5.tar.gz
-          tar xzf lua-5.1.5.tar.gz
-          sudo cp -r lua-5.1.5/src/*.h /usr/x86_64-w64-mingw32/include/
-
-      # Cross-compile yue.dll for Windows
-      - name: Cross-compile yue.dll
-        run: |
-          x86_64-w64-mingw32-gcc -shared -o src/yue.dll -I/usr/x86_64-w64-mingw32/include -L/usr/x86_64-w64-mingw32/lib -llua5.1 -static-libgcc -static-libstdc++
-
-      # Test and compile
+          luarocks make --dev
       - name: Test Project
-        run: |
-          yue -e build.yue src -t
+        run: yue -e build.yue src -t
       - name: Compile Project
-        run: |
-          yue -e build.yue src -d -y
+        run: yue -e build.yue src -d -y
 
-      # Build LÖVE applications
-      - name: Build LÖVE applications
-        uses: nhartland/love-build@master
+      - name: Fetch latest release of Yuescript
+        id: get_latest_yue
+        run: |
+          # Fetch the latest release JSON from GitHub API
+          curl -s https://api.github.com/repos/pigpigyyy/Yuescript/releases/latest > latest.json
+
+          # Extract URLs for yue.so and yue.dll
+          YUE_SO_URL=$(cat latest.json | jq -r '.assets[] | select(.name | endswith("yue-macos-universal-luajit-so.zip")) | .browser_download_url')
+          YUE_DLL_URL=$(cat latest.json | jq -r '.assets[] | select(.name | endswith("yue-windows-x64-lua51-dll.7z")) | .browser_download_url')
+
+          # Download the files
+          wget -q $YUE_SO_URL -O yue-macos-universal-luajit-so.zip 
+          wget -q $YUE_DLL_URL -O yue-windows-x64-lua51-dll.7z
+
+          # Unzip the files to the src directory
+          unzip -o yue-macos-universal-luajit-so.zip -d src/
+          7z x yue-windows-x64-lua51-dll.7z -osrc/
+
+      # Build the applications
+      - uses: nhartland/love-build@master
         with:
           app_name: ${{ steps.project_name.outputs.name }}
           love_version: "11.5"
 
-      # Copy yue.so and yue.dll to release directory
       - name: Copy yue.so and yue.dll to release directory
         run: |
-          sudo chmod -R 777 release/
-          cp src/yue.so release/
-          cp src/yue.dll release/
+          sudo cp src/yue.so release/
+          sudo cp src/yue.dll release/
 
-      # Upload artifacts
-      - name: Upload built applications
-        uses: actions/upload-artifact@v4
+      # Upload the built applications
+      - uses: actions/upload-artifact@v4
         with:
           name: built-applications
-          path: release/
+          path: release

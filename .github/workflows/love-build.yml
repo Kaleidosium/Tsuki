@@ -26,14 +26,23 @@ jobs:
       - name: Display Project Name
         run: |
           echo "Building Project '${{ steps.project_name.outputs.name }}'"
-      - uses: leafo/gh-actions-lua@v10
-        with:
-          buildCache: false
-          luaVersion: "5.1.5"
-      - uses: leafo/gh-actions-luarocks@v4
+
+      # Install Lua and LuaRocks
+      - name: Install Lua and LuaRocks
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks
+      # Set up environment for Lua and LuaRocks
+      - name: Set PATH and environment variables for Lua and LuaRocks
+        shell: bash
+        run: |
+          echo "$HOME/.luarocks/bin" >> $GITHUB_PATH
+          echo "LUA_PATH=$HOME/.luarocks/share/lua/5.1/?.lua;$HOME/.luarocks/share/lua/5.1/?/init.lua;;" >> $GITHUB_ENV
+          echo "LUA_CPATH=$HOME/.luarocks/lib/lua/5.1/?.so;;" >> $GITHUB_ENV
       - name: Install Lua Packages
         run: |
-          luarocks make --dev
+          luarocks --local make --dev
+
       - name: Test Project
         run: yue -e build.yue src -t
       - name: Compile Project

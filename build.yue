@@ -7,7 +7,6 @@ OK = 0
 BLOCKLIST_LINES =
     ["conf.lua"]: {
         "%s*require%(\"yue\"%)[^\n]*",
-        "package%.path = package%.path %.%. \";%./lib/lulpeg/%?%.lua\"[^\n]*\n",
     }
 
 traverse = (func, path, dirs) ->
@@ -163,13 +162,6 @@ class TsukiBuild
                 file_h = io.open(file, "w")
                 file_h\write(content)
                 file_h\close()
-
-            -- Kind of a workaround for now, just call it twice to clean up dirs after
-            -- All files are deleted
-            traverse(@\delete_all, "lib/lulpeg", true)
-            traverse(@\delete_all, "lib/lulpeg", true)
-            lfs.rmdir("lib/lulpeg")
-            
         else
             print "Aborting: '#{answer}' is not y"
             rv = ERR

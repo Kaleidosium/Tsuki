@@ -1,5 +1,4 @@
 -- https://love2d.org/wiki/Config_Files
-package.path = package.path .. ";./lib/lulpeg/?.lua"
 
 function love.conf(t)
     require("yue")

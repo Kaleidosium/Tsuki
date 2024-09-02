@@ -54,14 +54,6 @@ forked or used it as a template):
 git clone https://github.com/kaleidosium/tsuki.git
 ```
 
-Then, you will need to tell git to download the submodules for this repo that are needed
-to run Yuescript without precompiling:
-
-```sh
-cd tsuki                                # Go into the git repository on your local machine
-git submodule update --init --recursive # Update the git submodules for this repo
-```
-
 That's it! The conf.lua and main.lua take care of everything else to allow you to run
 the game!
 

@@ -48,8 +48,7 @@ jobs:
       - name: Compile Project
         run: yue -e build.yue src -d -y
 
-      - name: Fetch latest release of Yuescript
-        id: get_latest_yue
+      - name: Fetch latest release of Yuescript .so and .dll
         run: |
           # Fetch the latest release JSON from GitHub API
           curl -s https://api.github.com/repos/pigpigyyy/Yuescript/releases/latest > latest.json

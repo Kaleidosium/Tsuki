@@ -72,7 +72,7 @@ and you should be able to move around with the arrow keys.
 
 Now that you're all set up, write your game! Your source code should go in
 [the src directory](src/), and you can add as many files as you want.
-[The main file](src/main.yue) gives an example of how to require another file (in this
+[The main file](src/Main.yue) gives an example of how to require another file (in this
 case `Game.yue`) to make your game's code modular. There is also a `Player` class
 and a `Vector2` class to demonstrate how you might make your game even *more* modular.
 

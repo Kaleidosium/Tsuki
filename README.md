@@ -1,6 +1,6 @@
 # Tsuki 🈷️
 
-Tsuki is a project template to quickly set up LOVE2D to run [Yuescript](https://github.com/pigpigyyy/yuescript) instead of Lua,
+Tsuki is a project template to quickly set up LÖVE to run [Yuescript](https://github.com/pigpigyyy/yuescript) instead of Lua,
 *without* precompiling your `.yue` files to `.lua`
 
 This repository was forked from [novafacing](https://github.com/novafacing)'s [selene](https://github.com/novafacing/selene).
@@ -10,7 +10,7 @@ This repository was forked from [novafacing](https://github.com/novafacing)'s [s
 - [Tsuki 🈷️](#tsuki-️)
   - [Table of Contents](#table-of-contents)
   - [Installing](#installing)
-    - [Install LOVE2D](#install-love2d)
+    - [Install LÖVE](#install-LÖVE)
     - [Create Your Game](#create-your-game)
   - [Using](#using)
     - [First Run](#first-run)
@@ -28,12 +28,12 @@ This repository was forked from [novafacing](https://github.com/novafacing)'s [s
 ## Installing
 
 Tsuki works on Linux, macOS and Windows. It should also work anywhere else
-that LOVE2D runs!
+that LÖVE runs!
 
-### Install LOVE2D
+### Install LÖVE
 
-Tsuki needs LOVE2D to be installed to run your game, and you can get the installer
-for your platform at [the LOVE2D website](https://love2d.org).
+Tsuki needs LÖVE to be installed to run your game, and you can get the installer
+for your platform at [the LÖVE website](https://love2d.org).
 
 ### Create Your Game
 
@@ -64,7 +64,7 @@ the game!
 Now that you have the repository set up, just run `love .` to start your game! There is
 a demo project already configured for you, and you should see something like this:
 
-![A screenshot of the game running, displaying a moon image on the default LOVE2D dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)
+![A screenshot of the game running, displaying a moon image on the default LÖVE dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)
 
 and you should be able to move around with the arrow keys.
 
@@ -150,7 +150,7 @@ But be aware this will delete *all* `.lua` files in `src`!
 
 ## Useful Documentation
 
-- [Love2D Documentation](https://love2d.org/wiki/Main_Page)
+- [LÖVE Documentation](https://love2d.org/wiki/Main_Page)
 - [Yuescript Documentation](https://yuescript.org/)
 
 ## Contributions and Bug Fixes

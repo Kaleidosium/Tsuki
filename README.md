@@ -61,29 +61,7 @@ the game!
 
 ### First Run
 
-Now that you have the repository set up, just run `love .` to start your game! There is
-a demo project already configured for you, and you should see something like this:
-
-![A screenshot of the game running, displaying a moon image on the default LÖVE dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)
-
-and you should be able to move around with the arrow keys.
-
-### Writing Your Game
-
-Now that you're all set up, write your game! Your source code should go in
-[the src directory](src/), and you can add as many files as you want.
-[The main file](src/Main.yue) gives an example of how to require another file (in this
-case `Game.yue`) to make your game's code modular. There is also a `Player` class
-and a `Vector2` class to demonstrate how you might make your game even *more* modular.
-
-## Building and Testing
-
-### Build/Test Dependencies
-
-You don't need any dependencies other than `love` to *run* your game, but you will to
-build and test it.
-
-You will need a couple dependencies:
+Now that you have the repository set up, you will need a couple dependencies:
 
 - `lua == 5.1`: You can probably install from your package manager i.e.
   `apt install lua5.1`
@@ -98,7 +76,22 @@ Once you have `luarocks` installed, you can install the dependencies with:
 luarocks make --dev
 ```
 
-Don't forget the `--dev`, it's important!
+Don't forget the `--dev`, it's important! Finally, run `love .` to start your game! There is
+a demo project already configured for you, and you should see something like this:
+
+![A screenshot of the game running, displaying a moon image on the default LÖVE dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)
+
+and you should be able to move around with the arrow keys.
+
+### Writing Your Game
+
+Now that you're all set up, write your game! Your source code should go in
+[the src directory](src/), and you can add as many files as you want.
+[The main file](src/Main.yue) gives an example of how to require another file (in this
+case `Game.yue`) to make your game's code modular. There is also a `Player` class
+and a `Vector2` class to demonstrate how you might make your game even *more* modular.
+
+## Testing
 
 ### Testing
 

@@ -54,9 +54,6 @@ forked or used it as a template):
 git clone https://github.com/kaleidosium/tsuki.git
 ```
 
-That's it! The conf.lua and main.lua take care of everything else to allow you to run
-the game!
-
 ## Using
 
 ### First Run
@@ -157,11 +154,11 @@ and I don't expect I'll add too much code to it. Any improvements are likewise a
 Thanks for using Tsuki! I hope it helps you create great games, and if you do, please open a PR to
 add a gif or screenshot of your game and a link to it to this README so you can show it off!
 
-And special thanks to [novafacing](https://github.com/novafacing) (The creator of [Selene](https://github.com/novafacing/selene))
-, [pigpigyyy](https://github.com/pigpigyyy) (The creator of [Yuescript](https://github.com/pigpigyyy/Yuescript))
-, [leafo](https://github.com/leafo) (The creator of [MoonScript](https://github.com/leafo/moonscript))
-, and various other people who have contributed to the projects this one relies or built on. Without their contributions
-, this project would not have existed.
+And special thanks to [novafacing](https://github.com/novafacing) (The creator of [Selene](https://github.com/novafacing/selene)),
+[pigpigyyy](https://github.com/pigpigyyy) (The creator of [Yuescript](https://github.com/pigpigyyy/Yuescript)),
+[leafo](https://github.com/leafo) (The creator of [MoonScript](https://github.com/leafo/moonscript)), 
+and various other people who have contributed to the projects this one relies or built on. Without their contributions, 
+this project would not have existed.
 
 ## License
 

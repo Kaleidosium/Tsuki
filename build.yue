@@ -62,7 +62,7 @@ class TsukiBuild
         -- directory traversal. Returns OK on success, ERR on failure
         rv = OK
         if path\match("^.+%.yue$")
-            fd = io.popen("yue #{path}")
+            fd = io.popen("yue --target=5.1 #{path}")
             output = fd\read("*a")
 
             status = fd\close()
@@ -73,9 +73,9 @@ class TsukiBuild
         return rv
 
     clean_file: (path) =>
-        -- Clean a .lua file. Called as a callback by the
+        -- Clean .lua files. Called as a callback by the
         -- directory traversal. Returns OK on success, and cannot fail
-        if path\match("^.+%.lua$")
+        if path\match("^.+%.lua$")  and not path\match("conf.lua") and not path\match("main.lua")
             os.remove(path)
             print "Removed #{path}"
 
@@ -168,7 +168,7 @@ class TsukiBuild
         
         return rv
 
-    test: (patterns) =>
+    test: (patterns, verbose) =>
         rv = OK
         for _, pattern in ipairs patterns
             print("Running tests with pattern #{pattern}")
@@ -177,6 +177,7 @@ class TsukiBuild
             status = result\close!
             if not status
                 rv = ERR
+            if not status or verbose
                 print(output)
 
         if rv == ERR
@@ -196,6 +197,7 @@ main = (arg) ->
     parser\flag("-d --dist", "Build a distribution and remove all Yuescript files after building")\args("?")
     parser\flag("-y --yes", "Answer yes to all prompts. THIS MAY BE DANGEROUS!")\args("?")
     parser\flag("-t --test", "Run tests")\args("?")
+    parser\flag("-v --verbose", "Verbose output")\args("?")
     parser\option("-p --pattern", "Pattern(s) to use to search for test files")\args("+")\default("Test.+%.yue")\defmode("u")
     args = parser\parse(arg)
 

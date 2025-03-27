@@ -143,7 +143,7 @@ class TsukiBuild
         if yes
             answer = "y"
         else
-            io.write "Building distribution. Are you want to remove all Yuescript files? (y/n) "
+            io.write "Building distribution. Are you sure you want to remove all Yuescript files? (y/n) "
             answer = io.read()
 
         if answer == "y" or yes
@@ -162,6 +162,11 @@ class TsukiBuild
                 file_h = io.open(file, "w")
                 file_h\write(content)
                 file_h\close()
+            
+            main_lua_contents = "require(\"src.Main\")"
+            main_lua = io.open("main.lua", "w")
+            main_lua\write(main_file)
+            main_lua\close()
         else
             print "Aborting: '#{answer}' is not y"
             rv = ERR

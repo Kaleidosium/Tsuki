@@ -75,7 +75,7 @@ class TsukiBuild
     clean_file: (path) =>
         -- Clean .lua files. Called as a callback by the
         -- directory traversal. Returns OK on success, and cannot fail
-        if path\match("^.+%.lua$")  and not path\match("conf.lua") and not path\match("main.lua")
+        if path\match("^.+%.lua$") and not path\match("conf.lua") and not path\match("main.lua")
             os.remove(path)
             print "Removed #{path}"
 
@@ -216,7 +216,7 @@ main = (arg) ->
     rv = OK        
 
     if args["test"]
-        rv = build\test(args["pattern"])
+        rv = build\test(args["pattern"], args["verbose"])
     elseif args["clean"]
         rv = build\clean!
     elseif args["dist"]

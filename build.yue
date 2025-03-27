@@ -163,6 +163,7 @@ class TsukiBuild
                 file_h\write(content)
                 file_h\close()
             
+            print "Overwriting main.lua for distribution"
             main_lua_contents = "require(\"src.Main\")"
             main_lua = io.open("main.lua", "w")
             main_lua\write(main_lua_contents)

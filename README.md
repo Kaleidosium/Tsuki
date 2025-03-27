@@ -1,6 +1,6 @@
 # Tsuki 🈷️
 
-Tsuki is a project template to quickly set up LÖVE to run [Yuescript](https://github.com/pigpigyyy/yuescript) instead of Lua,
+Tsuki is a project template to quickly set up LÖVE to run [YueScript](https://github.com/IppClub/YueScript) instead of Lua,
 _without_ precompiling your `.yue` files to `.lua`
 
 This repository was forked from [novafacing](https://github.com/novafacing)'s [selene](https://github.com/novafacing/selene).
@@ -140,7 +140,7 @@ But be aware this will delete _all_ `.lua` files in `src`!
 ## Useful Documentation
 
 - [LÖVE Documentation](https://love2d.org/wiki/Main_Page)
-- [Yuescript Documentation](https://yuescript.org/)
+- [YueScript Documentation](https://YueScript.org/)
 
 ## Contributions and Bug Fixes
 
@@ -154,7 +154,7 @@ Thanks for using Tsuki! I hope it helps you create great games, and if you do, p
 add a gif or screenshot of your game and a link to it to this README so you can show it off!
 
 And special thanks to [novafacing](https://github.com/novafacing) (The creator of [Selene](https://github.com/novafacing/selene)),
-[pigpigyyy](https://github.com/pigpigyyy) (The creator of [Yuescript](https://github.com/IppClub/Yuescript)),
+[pigpigyyy](https://github.com/pigpigyyy) (The creator of [YueScript](https://github.com/IppClub/YueScript)),
 [leafo](https://github.com/leafo) (The creator of [MoonScript](https://github.com/leafo/moonscript)),
 and various other people who have contributed to the projects this one relies or built on. Without their contributions,
 this project would not have existed.

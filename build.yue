@@ -165,7 +165,7 @@ class TsukiBuild
             
             main_lua_contents = "require(\"src.Main\")"
             main_lua = io.open("main.lua", "w")
-            main_lua\write(main_file)
+            main_lua\write(main_lua_contents)
             main_lua\close()
         else
             print "Aborting: '#{answer}' is not y"

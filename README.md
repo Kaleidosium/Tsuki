@@ -1,7 +1,7 @@
 # Tsuki 🈷️
 
 Tsuki is a project template to quickly set up LÖVE to run [Yuescript](https://github.com/pigpigyyy/yuescript) instead of Lua,
-*without* precompiling your `.yue` files to `.lua`
+_without_ precompiling your `.yue` files to `.lua`
 
 This repository was forked from [novafacing](https://github.com/novafacing)'s [selene](https://github.com/novafacing/selene).
 
@@ -85,7 +85,7 @@ Now that you're all set up, write your game! Your source code should go in
 [the src directory](src/), and you can add as many files as you want.
 [The main file](src/Main.yue) gives an example of how to require another file (in this
 case `Game.yue`) to make your game's code modular. There is also a `Player` class
-and a `Vector2` class to demonstrate how you might make your game even *more* modular.
+and a `Vector2` class to demonstrate how you might make your game even _more_ modular.
 
 ## Testing
 
@@ -135,7 +135,7 @@ You can clean up the lua files from the source tree with:
 yue -e build.yue src --clean
 ```
 
-But be aware this will delete *all* `.lua` files in `src`!
+But be aware this will delete _all_ `.lua` files in `src`!
 
 ## Useful Documentation
 
@@ -154,9 +154,9 @@ Thanks for using Tsuki! I hope it helps you create great games, and if you do, p
 add a gif or screenshot of your game and a link to it to this README so you can show it off!
 
 And special thanks to [novafacing](https://github.com/novafacing) (The creator of [Selene](https://github.com/novafacing/selene)),
-[pigpigyyy](https://github.com/pigpigyyy) (The creator of [Yuescript](https://github.com/pigpigyyy/Yuescript)),
-[leafo](https://github.com/leafo) (The creator of [MoonScript](https://github.com/leafo/moonscript)), 
-and various other people who have contributed to the projects this one relies or built on. Without their contributions, 
+[pigpigyyy](https://github.com/pigpigyyy) (The creator of [Yuescript](https://github.com/IppClub/Yuescript)),
+[leafo](https://github.com/leafo) (The creator of [MoonScript](https://github.com/leafo/moonscript)),
+and various other people who have contributed to the projects this one relies or built on. Without their contributions,
 this project would not have existed.
 
 ## License

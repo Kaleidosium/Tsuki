@@ -49,7 +49,7 @@ jobs:
         run: yue -e build.yue src -d -y
 
       # Build the applications
-      - uses: nhartland/love-build@1
+      - uses: nhartland/love-build@v1
         with:
           app_name: ${{ steps.project_name.outputs.name }}
           love_version: "11.5"

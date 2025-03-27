@@ -48,36 +48,11 @@ jobs:
       - name: Compile Project
         run: yue -e build.yue src -d -y
 
-      - name: Fetch latest release of Yuescript .so and .dll
-        run: |
-          # Fetch the latest release JSON from GitHub API
-          curl -s https://api.github.com/repos/pigpigyyy/Yuescript/releases/latest > latest.json
-
-          # Extract URLs for yue.so and yue.dll
-          YUE_SO_URL=$(cat latest.json | jq -r '.assets[] | select(.name | endswith("yue-macos-universal-luajit-so.zip")) | .browser_download_url')
-          YUE_DLL_URL=$(cat latest.json | jq -r '.assets[] | select(.name | endswith("yue-windows-x64-lua51-dll.7z")) | .browser_download_url')
-
-          # Download the files
-          wget -q $YUE_SO_URL -O yue-macos-universal-luajit-so.zip 
-          wget -q $YUE_DLL_URL -O yue-windows-x64-lua51-dll.7z
-
-          # Unzip the files to the src directory
-          unzip -o yue-macos-universal-luajit-so.zip -d src/
-          7z x yue-windows-x64-lua51-dll.7z -osrc/
-
-          # Remove unneeded files
-          rm latest.json yue-macos-universal-luajit-so.zip yue-windows-x64-lua51-dll.7z
-
       # Build the applications
-      - uses: nhartland/love-build@master
+      - uses: nhartland/love-build@1
         with:
           app_name: ${{ steps.project_name.outputs.name }}
           love_version: "11.5"
-
-      - name: Copy yue.so and yue.dll to release directory
-        run: |
-          sudo cp src/yue.so release/
-          sudo cp src/yue.dll release/
 
       # Upload the built applications
       - uses: actions/upload-artifact@v4

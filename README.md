@@ -69,10 +69,10 @@ Now that you have the repository set up, you will need a couple dependencies:
 Once you have `luarocks` installed, you can install the dependencies with:
 
 ```sh
-luarocks make --dev --lua-version=5.1
+luarocks make --dev
 ```
 
-Don't forget the `--dev` and `--lua-version=5.1`, it's important! Finally, run `love .` to start your game! There is
+Don't forget the `--dev`, it's important! Finally, run `love .` to start your game! There is
 a demo project already configured for you, and you should see something like this:
 
 ![A screenshot of the game running, displaying a moon image on the default LÖVE dark background](https://github.com/user-attachments/assets/fe8d7fe2-7001-4a0b-83ca-d3b0584a5d40)

@@ -12,8 +12,8 @@ Tsuki is a project template to quickly set up LOVE2D to run Yuescript instead of
 }
 dependencies = {
    "lua == 5.1",
-   "busted >= 2.0.0",
-   "yuescript >= 0.24.1",
+   "busted >= 2.2.0",
+   "yuescript >= 0.27.3",
    "luafilesystem >= 1.8.0",
    "argparse >= 0.7.1"
 }
